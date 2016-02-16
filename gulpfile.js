@@ -4,7 +4,7 @@ var babelify = require('babelify');
 var fs = require('fs');
 
 var paths = {
-  js: ['src/js']
+  js: ['src/']
 };
 
 gulp.task('hello', function() {

@@ -30,34 +30,37 @@ function visibilityFilter(state = SHOW_ALL, action) {
     case SET_VISIBILITY_FILTER:
       if (VisibilityFilters[action.filter] !== 'undefined') {
         return action.filter
-      })
-    case default:
+      }
+    default:
       return state
   }
 }
 
 function todosById(state = {}, action) {
-  case ADD_TODO:
-    return Object.assign({}, state, {
-      [action.todo.id]: action.todo
-    })
-  case COMPLETE_TODO:
-    let newState = Object.assign({}, state),
+  switch (action.type) {
+    case ADD_TODO:
+      return Object.assign({}, state, {
+        [action.todo.id]: action.todo
+      })
+    case COMPLETE_TODO:
+      let newState = Object.assign({}, state)
       newState[action.todo.id].completed = true
-
-    return newState
-  case default:
-    return state
+      return newState
+    default:
+      return state
+  }
 }
 
 function todos(state = [], action) {
-  case ADD_TODO:
-    return [
-      ...state,
-      action.todo.id
-    ]
-  case default:
-    return state
+  switch (action.type) {
+    case ADD_TODO:
+      return [
+        ...state,
+        action.todo.id
+      ]
+    default:
+      return state
+  }
 }
 
 // Helpers //
@@ -75,4 +78,4 @@ function createTodo(action) {
   }
 }
 
-export default odoApp
+export default todoApp

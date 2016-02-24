@@ -12,7 +12,7 @@ const initialState = {
 function todoApp(state = initialState, action) {
   switch (action.type) {
     case ADD_TODO:
-      action.todo = createTodo()
+      action.todo = createTodo(action)
       break
   }
 

@@ -841,7 +841,7 @@ function todoApp(state, action) {
 
   switch (action.type) {
     case _actions.ADD_TODO:
-      action.todo = createTodo();
+      action.todo = createTodo(action);
       break;
   }
 
@@ -922,8 +922,25 @@ var _reducers = require('./reducers');
 
 var _reducers2 = _interopRequireDefault(_reducers);
 
+///
+
+var _actions = require('./actions');
+
 var store = (0, _redux.createStore)(_reducers2['default']);
 
 console.log(store.getState());
 
-},{"./reducers":13,"redux":7}]},{},[14]);
+var unsubscribe = store.subscribe(function () {
+  return console.log(store.getState());
+});
+
+store.dispatch((0, _actions.addTodo)('Learn about actions'));
+store.dispatch((0, _actions.addTodo)('Learn about reducers'));
+store.dispatch((0, _actions.addTodo)('Learn about stores'));
+store.dispatch((0, _actions.completeTodo)(0));
+store.dispatch((0, _actions.completeTodo)(1));
+store.dispatch((0, _actions.setVisibilityFilter)(_actions.VisibilityFilters.SHOW_COMPLETED));
+
+unsubscribe();
+
+},{"./actions":12,"./reducers":13,"redux":7}]},{},[14]);

@@ -44,7 +44,7 @@ function todosById(state = {}, action) {
       })
     case COMPLETE_TODO:
       let newState = Object.assign({}, state)
-      newState[action.todo.id].completed = true
+      newState[action.id].completed = true
       return newState
     default:
       return state

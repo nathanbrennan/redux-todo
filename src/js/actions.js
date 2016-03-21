@@ -1,6 +1,6 @@
 // Action types
 export const ADD_TODO = 'ADD_TODO'
-export const COMPLETE_TODO = 'COMPLETE_TODO'
+export const TOGGLE_TODO_COMPLETE = 'TOGGLE_TODO_COMPLETE'
 export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER'
 
 // Visibility Filters
@@ -15,8 +15,8 @@ export function addTodo(label) {
   return { type: ADD_TODO, label }
 }
 
-export function completeTodo(id) {
-  return { type: COMPLETE_TODO, id }
+export function toggleTodoComplete(id) {
+  return { type: TOGGLE_TODO_COMPLETE, id }
 }
 
 export function setVisibilityFilter(filter) {

@@ -6,6 +6,8 @@ const Link = ({ active, children, onClick }) => {
       onClick = {onClick}
       disabled = { active ? null : 'disabled' }
     >
+      {children}
+    </button>
   )
 }
 

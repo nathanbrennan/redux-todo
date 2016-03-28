@@ -3,7 +3,7 @@ const { SHOW_ALL } = VisibilityFilters
 
 const initialState = {
   visibilityFilter: SHOW_ALL,
-  todos: [],
+  todoIds: [],
   todosById: {}
 }
 
@@ -17,7 +17,7 @@ function todoApp(state = initialState, action) {
   }
 
   return {
-    todos: todos(state.todos, action),
+    todoIds: todoIds(state.todoIds, action),
     todosById: todosById(state.todosById, action),
     visibilityFilter: visibilityFilter(state.visibilityFilter, action)
   }
@@ -51,7 +51,7 @@ function todosById(state = {}, action) {
   }
 }
 
-function todos(state = [], action) {
+function todoIds(state = [], action) {
   switch (action.type) {
     case ADD_TODO:
       return [

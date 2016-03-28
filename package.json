@@ -5,7 +5,8 @@
     "express": "4.13.3",
     "react": "^0.14.0",
     "react-redux": "~4.4.0",
-    "redux": "~3.3.1"
+    "redux": "~3.3.1",
+    "react-dom": "~0.14.7"
   },
   "devDependencies": {
     "gulp": "~3.9.0",

@@ -2,14 +2,16 @@ import { connect } from 'react-redux'
 import { toggleTodo } from '../actions'
 import TodoList from '../components/TodoList'
 
-const getVisibilityFilter = (todos, visibilityFilter) => {
+const getVisibleTodos = (todoIds, todosById, visibilityFilter) => {
+  let todos = todoIds.map((id) => todosById[id])
+
   switch (visibilityFilter) {
-    case SHOW_COMPLETED:
+    case 'SHOW_COMPLETED':
       return todos.filter(todo => todo.completed)
-    case SHOW_ACTIVE:
+    case 'SHOW_ACTIVE':
       return todos.filter(todo => !todo.completed)
       break;
-    case SHOW_ALL:
+    case 'SHOW_ALL':
     default:
       return todos
   }
@@ -17,7 +19,7 @@ const getVisibilityFilter = (todos, visibilityFilter) => {
 
 const mapStateToProps = (state) => {
   return {
-    todos: getVisibilityFilter(state.todos, state.visibilityFilter)
+    todos: getVisibleTodos(state.todoIds, state.todosById, state.visibilityFilter)
   }
 }
 
@@ -29,9 +31,9 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const VisibleTodoList = connect({
+const VisibleTodoList = connect(
   mapStateToProps,
-  mapDispatToProps
-})(TodoList)
+  mapDispatchToProps
+)(TodoList)
 
 export default VisibleTodoList

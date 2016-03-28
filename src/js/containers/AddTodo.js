@@ -2,19 +2,21 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { addTodo } from '../actions'
 
-let AddTodo = ({ dispatch }) => {
-  return (
-    <div>
+class AddTodo extends React.Component {
+  render() {
+    return (
+      <div>
       <input ref="addTodoInput" />
       <button onClick={() => {
-        let input = this.ref.addTodoInput
-        this.dispatch(addTodo(input.value))
+        let input = this.refs.addTodoInput
+        this.props.dispatch(addTodo(input.value))
         input.value = ''
       }}>
-        Add Todo
+      Add Todo
       </button>
-    </div>
-  )
+      </div>
+    )
+  }
 }
 
 AddTodo = connect()(AddTodo)

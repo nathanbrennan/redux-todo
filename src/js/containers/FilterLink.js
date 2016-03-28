@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { setVisibleFilter } from '../actions'
+import { setVisibilityFilter } from '../actions'
 import Link from '../components/Link'
 
 const mapStateToProps = (state, ownProps) => {
@@ -8,17 +8,17 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onClick: () => {
-      dispatch(setVisibleFilter(ownProps.filter))
+      dispatch(setVisibilityFilter(ownProps.filter))
     }
   }
 }
 
-const FilterLink = connect({
+const FilterLink = connect(
   mapStateToProps,
-  mapDispatToProps
-})(Link)
+  mapDispatchToProps
+)(Link)
 
 export default FilterLink

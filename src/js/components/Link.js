@@ -4,7 +4,7 @@ const Link = ({ active, children, onClick }) => {
   return (
     <button
       onClick = {onClick}
-      disabled = { active ? null : 'disabled' }
+      disabled = { active ? 'disabled' : null }
     >
       {children}
     </button>

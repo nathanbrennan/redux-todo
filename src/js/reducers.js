@@ -1,4 +1,4 @@
-import { ADD_TODO, COMPLETE_TODO, SET_VISIBILITY_FILTER, VisibilityFilters } from './actions'
+import { ADD_TODO, TOGGLE_TODO_COMPLETE, SET_VISIBILITY_FILTER, VisibilityFilters } from './actions'
 const { SHOW_ALL } = VisibilityFilters
 
 const initialState = {
@@ -42,9 +42,9 @@ function todosById(state = {}, action) {
       return Object.assign({}, state, {
         [action.todo.id]: action.todo
       })
-    case COMPLETE_TODO:
+    case TOGGLE_TODO_COMPLETE:
       let newState = Object.assign({}, state)
-      newState[action.id].completed = true
+      newState[action.id].completed = !newState[action.id].completed
       return newState
     default:
       return state

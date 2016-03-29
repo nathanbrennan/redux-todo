@@ -7997,6 +7997,10 @@
 	  }
 	};
 
+	function registerNullComponentID() {
+	  ReactEmptyComponentRegistry.registerNullComponentID(this._rootNodeID);
+	}
+
 	var ReactEmptyComponent = function (instantiate) {
 	  this._currentElement = null;
 	  this._rootNodeID = null;
@@ -8005,7 +8009,7 @@
 	assign(ReactEmptyComponent.prototype, {
 	  construct: function (element) {},
 	  mountComponent: function (rootID, transaction, context) {
-	    ReactEmptyComponentRegistry.registerNullComponentID(rootID);
+	    transaction.getReactMountReady().enqueue(registerNullComponentID, this);
 	    this._rootNodeID = rootID;
 	    return ReactReconciler.mountComponent(this._renderedComponent, rootID, transaction, context);
 	  },
@@ -18728,7 +18732,7 @@
 
 	'use strict';
 
-	module.exports = '0.14.7';
+	module.exports = '0.14.8';
 
 /***/ },
 /* 147 */
@@ -20526,13 +20530,11 @@
 	 * // => true
 	 */
 	function isPlainObject(value) {
-	  if (!isObjectLike(value) || objectToString.call(value) != objectTag || isHostObject(value)) {
+	  if (!isObjectLike(value) ||
+	      objectToString.call(value) != objectTag || isHostObject(value)) {
 	    return false;
 	  }
-	  var proto = objectProto;
-	  if (typeof value.constructor == 'function') {
-	    proto = getPrototypeOf(value);
-	  }
+	  var proto = getPrototypeOf(value);
 	  if (proto === null) {
 	    return true;
 	  }
@@ -20974,13 +20976,11 @@
 	 * // => true
 	 */
 	function isPlainObject(value) {
-	  if (!isObjectLike(value) || objectToString.call(value) != objectTag || isHostObject(value)) {
+	  if (!isObjectLike(value) ||
+	      objectToString.call(value) != objectTag || isHostObject(value)) {
 	    return false;
 	  }
-	  var proto = objectProto;
-	  if (typeof value.constructor == 'function') {
-	    proto = getPrototypeOf(value);
-	  }
+	  var proto = getPrototypeOf(value);
 	  if (proto === null) {
 	    return true;
 	  }
@@ -21225,9 +21225,9 @@
 	  switch (action.type) {
 	    case _actions.ADD_TODO:
 	      return _extends({}, state, _defineProperty({}, action.todo.id, action.todo));
-	    case _actions.COMPLETE_TODO:
+	    case _actions.TOGGLE_TODO_COMPLETE:
 	      var newState = _extends({}, state);
-	      newState[action.id].completed = true;
+	      newState[action.id].completed = !newState[action.id].completed;
 	      return newState;
 	    default:
 	      return state;
@@ -21577,7 +21577,7 @@
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
 	    onTodoClick: function onTodoClick(id) {
-	      dispatch((0, _actions.toggleTodo)(id));
+	      dispatch((0, _actions.toggleTodoComplete)(id));
 	    }
 	  };
 	};
@@ -21660,7 +21660,7 @@
 	  return _react2.default.createElement(
 	    'li',
 	    {
-	      onclick: onClick,
+	      onClick: onClick,
 	      style: { textDecoration: completed ? 'line-through' : 'none' }
 	    },
 	    label
